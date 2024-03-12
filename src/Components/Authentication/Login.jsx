@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import './Booking.css'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  let navigate = useNavigate()
 
   const [state, setState] = useState({
     email: "", pwd: "",
@@ -28,11 +30,12 @@ const Login = () => {
   const submitHandle = (event) => {
     event.preventDefault();
     console.log("The Email value is", state);
+    navigate("/booking")
   }
   return (
     <div>
 
-      
+
       <div class="form-container">
         <h2>Login Form</h2>
         <form onSubmit={submitHandle}>
@@ -41,14 +44,14 @@ const Login = () => {
             <input type="email" id="email" name="email" required onChange={handleChange} />
           </div>
           {
-            state.errors.email.length > 0 ? <p style={{ color:'red'}}>{state.errors.email}</p> : null
+            state.errors.email.length > 0 ? <p style={{ color: 'red' }}>{state.errors.email}</p> : null
           }
           <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="pwd" required onChange={handleChange} />
           </div>
           {
-            state.errors.pwd.length > 0 ? <p style={{ color:'red'}}>{state.errors.pwd}</p> : null
+            state.errors.pwd.length > 0 ? <p style={{ color: 'red' }}>{state.errors.pwd}</p> : null
           }
 
           <div class="form-group submit">

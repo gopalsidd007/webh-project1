@@ -1,39 +1,81 @@
 import React, { useState } from 'react'
-import BookingDetails from './BookingDetails';
+
 import './Booking.css'
+import BookingDetails from './BookingDetails';
+import { useNavigate } from 'react-router-dom';
 
 const Booking = () => {
 
+    let navigate = useNavigate()
+    const MyContext = React.createContext();
+
     const [state, setBookstate] = useState({
         category: "", subcate: "", city: "", pname: "", price: "", check: "",
-        errors: {category: "", subcate: "", city: "", pname: "", price: "", check: ""}
+        errors: { category: "", subcate: "", city: "", pname: "", price: "", check: "" }
     })
+
     const [formstate, setformstate] = useState({})
 
-    let errMsg=state.errors;
+    const [check, setCheck] = useState(false)
 
+    console.log("statefff", state)
+
+    // handle change
     const handleChange = (event) => {
+        let errMsg = state.errors;
         let { name, value } = event.target;
-        setBookstate({ ...state, [name]: value })
+        setBookstate({ ...state, [name]: value, errors: errMsg })
+        setCheck(!check)
 
         switch (name) {
-            case "category": errMsg.category= value.length === 0 ? "Required Field" : ""
-              break;
-            case "pname": errMsg.pname= value.length === 0 ? "Required Field" : ""
-              break;
+            case "category": errMsg.category = value.length === 0 ? "Required Field" : ""
+                break;
+            case "pname": errMsg.pname = value.length === 0 ? "Required Field" : ""
+                break;
             case "price": errMsg.price = value.length === 0 ? "Required Field" : ""
-              break;
-      
+                break;
+            case "city": errMsg.city = value.length === 0 ? "Required Field" : ""
+                break;
             default: console.log("The error");
-              break;
-          }
-        
-
+                break;
+        }
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
+
+    const validate = () => {
+        let errMsg = state.errors;
         console.log("The form data is", state);
-        setformstate(state)
+        if (state.category === "") {
+            errMsg.category = "Required Field"
+        }
+        if (state.city === "") {
+            errMsg.city = "Required Field"
+        }
+        if (state.pname === "") {
+            errMsg.pname = "Required Field"
+        }
+        if (state.price === "") {
+            errMsg.price = "Required Field"
+        }
+
+
+        setBookstate((prev) => ({ ...prev, errors: errMsg }))
+    }
+
+    // const validateNew = () => {
+    //     let errMsg = state.errors;
+    //     (state.errors.category.length > 0 ? <p>{state.errors.category}</p> : null)
+    //     setBookstate((prev) => ({ ...prev, errors: errMsg }))
+    // }
+
+    const handleSubmit = (event) => {
+
+        validate()
+
+
+        event.preventDefault();
+
+        setformstate(state);
+        navigate("/details")
     }
 
     return (
@@ -62,62 +104,106 @@ const Booking = () => {
             </button>
         </form> */}
 
-            {/* <BookingDetails  formdata={formstate} /> */}
+            {/* <BookingDetails formdata={formstate} /> */}
 
-            <div class="form-container">
+            <div className="form-container">
                 <h2>Primary Form</h2>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit}>
                     <div class="form-group">
                         <label for="option">Category:</label>
-                        <select id="option" name="category"  onChange={handleChange}>
+                        <select id="option" value={state.category} name="category" onChange={handleChange}>
+                            <option value="" >Select</option>
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="option">Sub Category:</label>
-                        <select id="option" name="subcate" onChange={handleChange} >
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                        </select>
-                    </div>
+                    {
+                        state.errors.category.length > 0 ? <p style={{ color: 'red' }}>{state.errors.category}</p> : null
+                    }
+
 
                     <div class="form-group">
                         <label for="option">City:</label>
-                        <select id="option" name="city" onChange={handleChange}>
+                        <select id="option" value={state.city} name="city" onChange={handleChange}>
+                            <option value="" >Select</option>
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
                         </select>
                     </div>
+                    {
+                        state.errors.city.length > 0 ? <p style={{ color: 'red' }}>{state.errors.city}</p> : null
+                    }
+
                     <div class="form-group">
                         <label for="pname">Product Name:</label>
-                        <input type="text" id="pname" name="pname" required onChange={handleChange} />
+                        <input type="text" id="pname" name="pname" onChange={handleChange} />
                     </div>
                     {
-                        state.errors.pname.length > 0 ? <p style={{ color:'red'}}>{state.errors.pname}</p> : null
+                        state.errors.pname.length > 0 ? <p style={{ color: 'red' }}>{state.errors.pname}</p> : null
                     }
                     <div class="form-group">
                         <label for="price">Product Price:</label>
-                        <input type="price" id="price" name="price" required onChange={handleChange} />
+                        <input type="price" id="price" name="price" onChange={handleChange} />
                     </div>
                     {
-                        state.errors.price.length > 0 ? <p style={{ color:'red'}}>{state.errors.price}</p> : null
+                        state.errors.price.length > 0 ? <p style={{ color: 'red' }}>{state.errors.price}</p> : null
                     }
                     <div class="form-group">
                         <label for="price">Gender:
                             Male
-                            <input type="radio" id="gender" value="male" required onChange={handleChange} />
+                            <input
+                                name='red'
+                                type="radio"
+                                id="gender"
+                                value="male"
+                                onChange={handleChange}
+                            />
                             Female
-                            <input type="radio" id="gender" value="female" required onChange={handleChange} />
+                            <input
+                                name='red'
+                                type="radio"
+                                id="gender"
+                                value="female"
+                                onChange={handleChange}
+                            />
+                            Others
+                            <input
+                                name='red'
+                                type="radio"
+                                id="gender"
+                                value="others"
+                                onChange={handleChange}
+                            />
                         </label>
                     </div>
                     <div class="form-group">
-                        <label for="price">You Want to check:
-                            <input type="checkbox" id="price" name="check" required onChange={handleChange} />
+                        <label for="price">Please check:
+                            check 1
+                            <input
+                                type="checkbox"
+                                id="price"
+                                name="check"
+                                value={check}
+                                onChange={handleChange}
+                            />
+                            check 2
+                            <input
+                                type="checkbox"
+                                id="price"
+                                name="check"
+                                value={check}
+                                onChange={handleChange}
+                            />
+                            check 3
+                            <input
+                                type="checkbox"
+                                id="price"
+                                name="check"
+                                value={check}
+                                onChange={handleChange}
+                            />
                         </label>
                     </div>
 
@@ -125,8 +211,14 @@ const Booking = () => {
                         <button type="submit">Submit</button>
                     </div>
                 </form>
+
+
+
             </div>
 
+            <MyContext.Provider value={formstate}>
+                <BookingDetails />
+            </MyContext.Provider>
 
         </div>
     )

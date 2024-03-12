@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Components/Layout/Header';
 import Routing from './Components/Routing/Routing';
 
+
 // import { BrowserRouter } from 'react-router-dom';
 
 function App() {
@@ -15,11 +16,11 @@ function App() {
 
       {/* <Login /> */}
       {/*<Login/>*/}
-      <Booking />
+      {/* <Booking /> */}
 
       {/* <Header/> */}
 
-      {/* <Routing/> */}
+      <Routing />
     </div>
   );
 }
