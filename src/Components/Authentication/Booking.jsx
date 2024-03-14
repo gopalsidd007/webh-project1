@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import "./Booking.css";
 import BookingDetails from "./BookingDetails";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userform } from "../Redux/Slice/CrudSlice";
 
 const Booking = () => {
   let navigate = useNavigate();
-  const MyContext = React.createContext();
+
+  let dispatch = useDispatch();
 
   const [state, setBookstate] = useState({
     category: "",
@@ -15,6 +18,7 @@ const Booking = () => {
     pname: "",
     price: "",
     check: [],
+
     errors: {
       category: "",
       subcate: "",
@@ -28,7 +32,27 @@ const Booking = () => {
   const [formstate, setformstate] = useState({});
   const [check, setCheck] = useState([]);
 
-  console.log("statefff", state);
+  const [fieldcheck, setFieldcheck] = useState({
+    category: true,
+    city: true,
+    pname: true,
+    price: true,
+  });
+
+  let nextid = 0;
+  const initfield = { nweprodutct: "", newprice: "", tax: "", total: "" };
+  const [addfield, setAddfield] = useState([initfield]);
+  console.log("statefff", addfield);
+
+  //new field value
+
+  const newhandlechange = (e, i) => {
+    const { name, value } = e.target;
+    let newArr = [...addfield];
+    newArr[i][name] = value;
+    setAddfield(newArr);
+    // console.log("namevalue", name, value, i, newArr[i][name]);
+  };
 
   // handle change
   const handleChange = (event) => {
@@ -47,10 +71,10 @@ const Booking = () => {
       //   console.log("checkValue", value);
       let arr = state.check;
 
-    //   console.log(
-    //     "dddfdf",
-    //     arr.findIndex((ele) => ele === value)
-    //   );
+      //   console.log(
+      //     "dddfdf",
+      //     arr.findIndex((ele) => ele === value)
+      //   );
 
       if (arr.findIndex((ele) => ele === value) === -1) {
         arr.push(value);
@@ -90,13 +114,6 @@ const Booking = () => {
     }
   };
 
-  const [fieldcheck, setFieldcheck] = useState({
-    category: true,
-    city: true,
-    pname: true,
-    price: true,
-  });
-
   const validate = () => {
     let errMsg = {};
     console.log("The form data is", state);
@@ -127,7 +144,13 @@ const Booking = () => {
   //     setBookstate((prev) => ({ ...prev, errors: errMsg }))
   // }
 
-  console.log("field valid", fieldcheck);
+  // console.log("field valid", fieldcheck);
+
+  const extrafield = () => {
+    setAddfield([...addfield, initfield]);
+    // addfield.push(initfield)
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -136,9 +159,10 @@ const Booking = () => {
     if (Object.keys(validate()).length !== 0) {
       return;
     }
-    
 
-    navigate("/details", { state: state });
+    dispatch(userform(state));
+    // navigate("/details", { state: state });
+    navigate("/details");
   };
 
   return (
@@ -171,7 +195,7 @@ const Booking = () => {
         <h2>Primary Form</h2>
         <form onSubmit={handleSubmit}>
           <div class="form-group">
-            <label for="option">Category:</label>
+            <label for="option">Country:</label>
             <select
               id="option"
               value={state.category}
@@ -179,9 +203,9 @@ const Booking = () => {
               onChange={handleChange}
             >
               <option value="">Select</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              <option value="India">India</option>
+              <option value="Srilanka">Srilanka</option>
+              <option value="Pakistan">Pakistan</option>
             </select>
           </div>
 
@@ -196,9 +220,9 @@ const Booking = () => {
               onChange={handleChange}
             >
               <option value="">Select</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              <option value="kolkata">KOlkata</option>
+              <option value="chennai">Chennai</option>
+              <option value="banglore">Banglore</option>
             </select>
           </div>
 
@@ -285,10 +309,76 @@ const Booking = () => {
             </label>
           </div>
 
+          {/* new field added           */}
+
           <div class="form-group submit">
             <button type="submit">Submit</button>
           </div>
         </form>
+      </div>
+
+      <div className="form-container">
+        <button
+          onClick={() => {
+            extrafield();
+          }}
+        >
+          add{" "}
+        </button>
+        <table>
+          <thead>
+            <tr>
+              <th>Delete</th>
+              <th>Product</th>
+              <th>Price </th>
+              <th>Tax (%)</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {addfield.map((post, i) => (
+              <tr key={i}>
+                <td>
+                  <button
+                    onClick={() => {
+                      setAddfield(addfield.filter((a, ind) => ind != i));
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="nweprodutct"
+                    onChange={(e) => newhandlechange(e, i)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="newprice"
+                    onChange={(e) => newhandlechange(e, i)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="tax"
+                    onChange={(e) => newhandlechange(e, i)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="total"
+                    onChange={(e) => newhandlechange(e, i)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
