@@ -7,7 +7,8 @@ const initialState = {
   count:0,
   data:"",
   userdata:[],
-  formdata:[]
+  formdata:[],
+  cartitem:[]
 };
 
 
@@ -40,9 +41,15 @@ const Curdslice = createSlice({
     },
     userform:(state,action)=>{
       state.formdata.push(action.payload)
+    },
+    addcart:(state,action)=>{
+      state.cartitem.push(action.payload)
+      
     }
+    
   },
 });
+// console.log("The cart item",cartitem);
 
 export default Curdslice.reducer;
-export const { postname,increment,decrement,fieldinput,userform } = Curdslice.actions;
+export const { postname,increment,decrement,fieldinput,userform,addcart } = Curdslice.actions;

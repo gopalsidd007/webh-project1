@@ -6,6 +6,7 @@ import Header from "../Layout/Header";
 import BookingDetails from "../Authentication/BookingDetails";
 import Home from "../Authentication/Home";
 import About from "../Authentication/About";
+import Product from "../Authentication/Product";
 
 const Routing = () => {
   return (
@@ -18,6 +19,7 @@ const Routing = () => {
         <Route path="/booking" element={<Booking />} />
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<BookingDetails />} />
+        <Route path="/product" element={<Product/>} />
       </Routes>
     </BrowserRouter>
   );

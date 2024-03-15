@@ -6,17 +6,15 @@ import { Column } from "primereact/column";
 import DataTable from "react-data-table-component";
 import { useSelector } from "react-redux";
 
-
-
-
 const BookingDetails = () => {
   const location = useLocation();
   // const products = location.state;
   // console.log("thelooka", products);
 
-const {formdata}=useSelector((state) => state.curd)
+  const { formdata } = useSelector((state) => state.curd);
 
-console.log("The redux form data",formdata);
+  console.log("Thedfgfdgd", formdata);
+
   const ExpandedComponent = ({ producdatats }) => (
     <pre>{JSON.stringify(products, null, 2)}</pre>
   );
@@ -42,7 +40,12 @@ console.log("The redux form data",formdata);
       name: "Gender",
       selector: (row) => row.red,
     },
+    {
+      name: "Total Price",
+      selector: (row) => row.totalprice ,
+    },
   ];
+
   const data = [
     {
       id: 1,
@@ -61,7 +64,7 @@ console.log("The redux form data",formdata);
       <DataTable
         columns={columns}
         data={formdata}
-        
+
         // expandableRows
         // expandableRowsComponent={ExpandedComponent}
       />

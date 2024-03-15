@@ -17,6 +17,7 @@ const Booking = () => {
     city: "",
     pname: "",
     price: "",
+    red: "",
     check: [],
 
     errors: {
@@ -75,8 +76,9 @@ const Booking = () => {
       //     "dddfdf",
       //     arr.findIndex((ele) => ele === value)
       //   );
+      console.log("arrr", arr);
 
-      if (arr.findIndex((ele) => ele === value) === -1) {
+      if (arr?.findIndex((ele) => ele === value) === -1) {
         arr.push(value);
       } else {
         arr = state.check.filter((event) => event !== value);
@@ -108,6 +110,10 @@ const Booking = () => {
       case "city":
         errMsg.city = value.length === 0 ? "Required Field" : "";
         break;
+
+      // case "red":
+      //   errMsg.red = state.red === "" ? "Required Field" : "";
+      //   break;
       default:
         console.log("The error");
         break;
@@ -133,7 +139,14 @@ const Booking = () => {
       errMsg.price = "Required Field";
       //   setFieldcheck({ price: false });
     }
-
+    if (state.red === "") {
+      errMsg.red = "Required Field";
+      //   setFieldcheck({ price: false });
+    }
+    if (state.check.length === 0) {
+      errMsg.check = "Required Field";
+      //   setFieldcheck({ price: false });
+    }
     setBookstate((prev) => ({ ...prev, errors: errMsg }));
     return errMsg;
   };
@@ -160,8 +173,14 @@ const Booking = () => {
       return;
     }
 
-    dispatch(userform(state));
-    // navigate("/details", { state: state });
+    console.log("addfieldsss", addfield);
+    const totalprice = addfield.reduce(function (pre, post) {
+      return Number(pre) + Number(post.total);
+    }, 0);
+
+    console.log("totalprice", totalprice);
+
+    dispatch(userform({ ...state, totalprice: totalprice }));
     navigate("/details");
   };
 
@@ -280,6 +299,8 @@ const Booking = () => {
               />
             </label>
           </div>
+
+          <p style={{ color: "red" }}>{state.errors.red}</p>
           <div class="form-group">
             <label for="price">
               Please check: check 1
@@ -309,7 +330,74 @@ const Booking = () => {
             </label>
           </div>
 
+          <p style={{ color: "red" }}>{state.errors.check}</p>
+
           {/* new field added           */}
+          <div className="form-container">
+            <button
+              type="button"
+              onClick={() => {
+                extrafield();
+              }}
+            >
+              add{" "}
+            </button>
+            <table>
+              <thead>
+                <tr>
+                  <th>Delete</th>
+                  <th>Product</th>
+                  <th>Price </th>
+                  <th>Tax (%)</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {addfield.map((post, i) => (
+                  <tr key={i}>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAddfield(addfield.filter((a, ind) => ind != i));
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="nweprodutct"
+                        onChange={(e) => newhandlechange(e, i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="newprice"
+                        onChange={(e) => newhandlechange(e, i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="tax"
+                        onChange={(e) => newhandlechange(e, i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="total"
+                        onChange={(e) => newhandlechange(e, i)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <div class="form-group submit">
             <button type="submit">Submit</button>
@@ -317,7 +405,7 @@ const Booking = () => {
         </form>
       </div>
 
-      <div className="form-container">
+      {/* <div className="form-container">
         <button
           onClick={() => {
             extrafield();
@@ -379,7 +467,7 @@ const Booking = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };

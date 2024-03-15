@@ -22,7 +22,8 @@ const Header = () => {
               <Nav.Link as={Link} to="login">Login</Nav.Link>
               <Nav.Link as={Link} to="booking">Booking</Nav.Link>
               <Nav.Link as={Link} to="details">Booking Details</Nav.Link>
-
+              <Nav.Link as={Link} to="product">product</Nav.Link>
+              <Nav.Link >cart:</Nav.Link>
 
             </Nav>
           </Navbar.Collapse>
