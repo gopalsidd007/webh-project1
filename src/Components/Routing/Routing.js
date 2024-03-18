@@ -7,6 +7,10 @@ import BookingDetails from "../Authentication/BookingDetails";
 import Home from "../Authentication/Home";
 import About from "../Authentication/About";
 import Product from "../Authentication/Product";
+import Cart from "../Authentication/Cart";
+import ProductDetails from "../Authentication/ProductDetails";
+import Parentform from "../FormComponent/Parentform";
+import Form1 from "../FormComponent/Form1";
 
 const Routing = () => {
   return (
@@ -20,6 +24,12 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<BookingDetails />} />
         <Route path="/product" element={<Product/>} />
+      
+        <Route path="product/prodetails" element={<ProductDetails/>} />
+        <Route path="/parentform" element={<Parentform/>} />
+        {/* <Route path="/form1" element={<Form1/>} /> */}
+
+        
       </Routes>
     </BrowserRouter>
   );

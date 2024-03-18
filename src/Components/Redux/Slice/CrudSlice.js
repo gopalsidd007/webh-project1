@@ -44,12 +44,15 @@ const Curdslice = createSlice({
     },
     addcart:(state,action)=>{
       state.cartitem.push(action.payload)
-      
-    }
     
+    },
+    rmvcart:(state,action)=>{
+      state.cartitem=state.cartitem.filter((item)=>item.id !=action.payload)
+    }
+   
   },
 });
 // console.log("The cart item",cartitem);
 
 export default Curdslice.reducer;
-export const { postname,increment,decrement,fieldinput,userform,addcart } = Curdslice.actions;
+export const { postname,increment,decrement,fieldinput,userform,addcart,rmvcart } = Curdslice.actions;
