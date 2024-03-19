@@ -1,62 +1,56 @@
-import React from 'react'
+import React from "react";
 
-const Form3 = () => {
+const Form3 = ({ formdata, setFormdata }) => {
   return (
     <div>
-         <div class="form-container">
+      <div class="form-container">
         <h2>Personal Details</h2>
-        <form >
+        <form>
           <div class="form-group">
-            <label >First Name</label>
-            <input type="text" id="fname" name="fname"  />
+            <label>First Name</label>
+            <input type="text" 
+            id="fname"
+             name="fname" 
+             value={formdata.fname} 
+             onChange={(event) =>
+              setFormdata({ ...formdata,fname: event.target.value })
+            }
+             />
+             <p style={{ color: "red" }}>{formdata.errors.fname}</p> 
           </div>
           <div class="form-group">
-            <label >Last Name Name</label>
-            <input type="text" id="lname" name="fname"  />
+            <label>Last Name Name</label>
+            <input type="text" 
+            id="lname" 
+            name="lname" 
+            value={formdata.lname}
+            onChange={(event) =>
+              setFormdata({ ...formdata, lname: event.target.value })
+            }
+             />
+              <p style={{ color: "red" }}>{formdata.errors.lname}</p>
           </div>
-         
-         
 
           <div class="form-group">
             <label for="price">
               Gender: Male
-              <input
-                name="red"
-                type="radio"
-                id="gender"
-                value="male"
-                
-              />
+              <input name="red" type="radio" id="gender" value="male" />
               Female
-              <input
-                name="red"
-                type="radio"
-                id="gender"
-                value="female"
-                
-              />
+              <input name="red" type="radio" id="gender" value="female" />
               Others
-              <input
-                name="red"
-                type="radio"
-                id="gender"
-                value="others"
-                
-              />
+              <input name="red" type="radio" id="gender" value="others" />
             </label>
           </div>
-          
 
-          <div class="form-group submit">
+          {/* <div class="form-group submit">
             <button type="button" onClick={(e)=>{
              
             }}>Next</button>
-          </div>
+          </div> */}
         </form>
-        
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Form3
+export default Form3;

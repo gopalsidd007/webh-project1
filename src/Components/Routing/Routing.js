@@ -11,6 +11,7 @@ import Cart from "../Authentication/Cart";
 import ProductDetails from "../Authentication/ProductDetails";
 import Parentform from "../FormComponent/Parentform";
 import Form1 from "../FormComponent/Form1";
+import Formdetails from "../FormComponent/Formdetails";
 
 const Routing = () => {
   return (
@@ -24,10 +25,10 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<BookingDetails />} />
         <Route path="/product" element={<Product/>} />
-      
+        <Route path="/cart" element={<Cart/>} />
         <Route path="product/prodetails" element={<ProductDetails/>} />
         <Route path="/parentform" element={<Parentform/>} />
-        {/* <Route path="/form1" element={<Form1/>} /> */}
+        <Route path="/formdetails" element={<Formdetails/>} />    
 
         
       </Routes>

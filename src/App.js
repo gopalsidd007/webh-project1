@@ -6,6 +6,7 @@ import Booking from "./Components/Authentication/Booking";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Layout/Header";
 import Routing from "./Components/Routing/Routing";
+import Parentform from "./Components/FormComponent/Parentform";
 
 // import { BrowserRouter } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ function App() {
       {/* <Booking /> */}
       {/* <Header/> */}
       <Routing />
+      {/* <Parentform/> */}
     </div>
   );
 }

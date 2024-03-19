@@ -94,7 +94,7 @@ const Product = () => {
                       variant="primary"
                       onClick={(e) => {
                         dispatch(addcart(post));
-                        // navigate("/cart")
+                        navigate("/cart")
                       }}
                     >
                       add to cart

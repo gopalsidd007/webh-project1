@@ -1,64 +1,74 @@
-import React, { useState } from "react";
+import React, { useerrstate } from "react";
 
-const Form1 = ({ setForm2state }) => {
-  const [state, setEdudetails] = useState({
-    colgname: "",
-    degree: "",
-    univ: "",
-    errors: { colgname: "", degree: "", univ: "" },
-  });
-
-  const validate = () => {
-    let errMsg = {};
-    
-    if (state.colgname === "") {
-      errMsg.colgname = "Required Field";
-    }
-    if (state.degree === "") {
-      errMsg.degree = "Required Field";
-      
-    }
-    if (state.univ === "") {
-      errMsg.univ = "Required Field";
-      
-    }
-
-    setEdudetails((prev) => ({ ...prev, errors: errMsg }));
-    return errMsg;
-  };
-
-  const handleform1 = (event) => {
-    event.preventDefault();
-    if (Object.keys(validate()).length !== 0) {
-      return;
-    }
-    
-        setForm2state(true);
-    
-  };
+const Form1 = ({ formdata, setFormdata }) => {
   return (
     <div>
       <h2>Educational Details</h2>
-      <form onSubmit={handleform1}>
+      <form>
         <div class="form-group">
           <label>College Name</label>
-          <input type="text" id="colgname" name="colgname" />
+          <input
+            type="text"
+            id="colgname"
+            name="colgname"
+            value={formdata.colgname}
+            onChange={(event) =>
+              setFormdata({ ...formdata, colgname: event.target.value })
+            }
+          />
+          <p style={{ color: "red" }}>{formdata.errors.colgname}</p>
         </div>
-        <p style={{ color: "red" }}>{state.errors.colgname}</p>
-        <div class="form-group">
+        
+        {/* <div class="form-group">
           <label>Degree</label>
-          <input type="text" id="degree" name="degree" />
-        </div>
-        <p style={{ color: "red" }}>{state.errors.degree}</p>
+          <input
+            type="text"
+            id="degree"
+            name="degree"
+            value={formdata.degree}
+            onChange={(event) =>
+              setFormdata({ ...formdata, degree: event.target.value })
+            }
+          />
+          <p style={{ color: "red" }}>{formdata.errors.degree}</p>
+        </div> */}
+
+        <div class="form-group">
+            <label for="option">Degree:</label>
+            <select
+              id="option"
+              value={formdata.degree}
+              name="category"
+              onChange={(event) =>
+                setFormdata({ ...formdata, degree: event.target.value })
+              }
+            >
+              <option value="">Select</option>
+              <option value="Enge">Eng</option>
+              <option value="Bsc">Bsc</option>
+              <option value="Bcom">Bcom</option>
+              <option value="BA">BA</option>
+            </select>
+            <p style={{ color: "red" }}>{formdata.errors.degree}</p>
+          </div>
+        
         <div class="form-group">
           <label>University</label>
-          <input type="text" id="univ" name="univ" />
+          <input type="text" 
+          id="univ" 
+          name="univ" 
+          value={formdata.univ}
+          onChange={(event) =>
+            setFormdata({ ...formdata, univ: event.target.value })
+          }
+           />
+           <p style={{ color: "red" }}>{formdata.errors.univ}</p> 
         </div>
-        <p style={{ color: "red" }}>{state.errors.univ}</p>
+        
 
-        <div class="form-group submit">
+        {/* <div class="form-group submit">
           <button type="submit">Next-page-form2</button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

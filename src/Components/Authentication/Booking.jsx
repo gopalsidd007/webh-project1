@@ -147,6 +147,7 @@ const Booking = () => {
       errMsg.check = "Required Field";
       //   setFieldcheck({ price: false });
     }
+
     setBookstate((prev) => ({ ...prev, errors: errMsg }));
     return errMsg;
   };
@@ -167,7 +168,7 @@ const Booking = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("sdsf", Object.keys(validate()).length);
+    // console.log("sdsf", Object.keys(validate()).length);
 
     if (Object.keys(validate()).length !== 0) {
       return;
