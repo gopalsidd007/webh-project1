@@ -47,6 +47,19 @@ const Header = () => {
               <Nav.Link as={Link} to="parentform">
                 ParentForm
               </Nav.Link>
+
+              <Nav.Link as={Link} to="accordian">
+                Accordian
+              </Nav.Link>
+
+              <Nav.Link as={Link} to="modal">
+                Modal
+              </Nav.Link>
+
+              <Nav.Link as={Link} to="todolist">
+                To do
+              </Nav.Link>
+
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -7,6 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Layout/Header";
 import Routing from "./Components/Routing/Routing";
 import Parentform from "./Components/FormComponent/Parentform";
+import ModalCompo from "./Components/FormComponent/ModalCompo";
+import Accordian from "./Components/FormComponent/Accordian";
+import AccoData from "./Components/FormComponent/AccoData";
+import Todolist from "./Components/FormComponent/Todolist";
 
 // import { BrowserRouter } from 'react-router-dom';
 
@@ -19,6 +23,10 @@ function App() {
       {/* <Header/> */}
       <Routing />
       {/* <Parentform/> */}
+      {/* <ModalCompo/> */}
+    {/* <Accordian/> */}
+    {/* <AccoData/> */}
+    {/* <Todolist/> */}
     </div>
   );
 }

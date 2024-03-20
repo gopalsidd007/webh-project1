@@ -12,6 +12,9 @@ import ProductDetails from "../Authentication/ProductDetails";
 import Parentform from "../FormComponent/Parentform";
 import Form1 from "../FormComponent/Form1";
 import Formdetails from "../FormComponent/Formdetails";
+import Accordian from "../FormComponent/Accordian";
+import ModalCompo from "../FormComponent/ModalCompo";
+import Todolist from "../FormComponent/Todolist";
 
 const Routing = () => {
   return (
@@ -29,6 +32,9 @@ const Routing = () => {
         <Route path="product/prodetails" element={<ProductDetails/>} />
         <Route path="/parentform" element={<Parentform/>} />
         <Route path="/formdetails" element={<Formdetails/>} />    
+        <Route path="/accordian" element={<Accordian/>} />  
+        <Route path="/modal" element={<ModalCompo/>} />   
+        <Route path="/todolist" element={<Todolist/>} />   
 
         
       </Routes>
